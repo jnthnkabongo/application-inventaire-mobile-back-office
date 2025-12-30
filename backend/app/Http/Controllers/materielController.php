@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\saveMateriel;
 use App\Models\materiels;
+use App\Models\regions;
+use App\Models\shops;
+use App\Models\type_materiels;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -82,23 +85,28 @@ class materielController extends Controller
 
     //********************** PARTIE WEB ****************************/
     public function liste_materiels(){
-        return view('liste-materiels');
+        $liste_materiels = materiels::with('Regions','Shops')->paginate(10);
+        return view('liste-materiels', compact('liste_materiels'));
     }
 
     public function liste_utilisateurs(){
-        return view('liste-utilisateur');
+        $liste_users = User::with('Roles')->paginate(10);
+        return view('liste-utilisateur', compact('liste_users'));
     }
 
     public function liste_regions(){
-        return view('liste-regions');
+        $liste_regions = regions::orderBy('id', 'desc')->paginate(10);
+        return view('liste-regions', compact('liste_regions'));
     }
 
     public function liste_shops(){
-        return view('liste-shops');
+        $liste_shops = shops::orderBy('id', 'desc')->paginate(10);
+        return view('liste-shops', compact('liste_shops'));
     }
 
     public function type_materiels(){
-        return view('liste-type-materiel');
+        $liste_type_mate = type_materiels::orderBy('id', 'desc')->paginate(10);
+        return view('liste-type-materiel', compact('liste_type_mate'));
     }
 
     public function rapport(){

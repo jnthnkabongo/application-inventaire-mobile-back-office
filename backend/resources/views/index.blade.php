@@ -86,7 +86,7 @@
     </div>
     <div class="container mt-5">
         <div class="card shadow-sm border-0">
-            <div class="card-header bg-primary text-white d-flex flex-wrap align-items-center justify-content-center">
+            <div class="card-header bg-dark text-white d-flex flex-wrap align-items-center justify-content-center">
                 <div class="row g-2 flex-grow-1 d-flex align-items-center justify-content-center">
                     <!-- Type matériel -->
                     <div class="col-auto">
@@ -212,11 +212,11 @@
                             <td>
                                 <div class="d-flex gap-1">
                                     <form method="GET" action="">
-                                        <button class="btn btn-sm btn-primary text-white">👁</button>
+                                        <button class="btn btn-sm btn-dark text-white">👁</button>
                                     </form>
 
                                     <form method="GET" action="">
-                                        <button class="btn btn-sm btn-primary text-white">✏️</button>
+                                        <button class="btn btn-sm btn-dark text-white">✏️</button>
                                     </form>
 
                                     <form method="POST" action=""

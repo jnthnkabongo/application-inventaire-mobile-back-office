@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/pages/page_connexion.dart';
+import 'package:frontend/services/application_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MyParametresPage extends StatefulWidget {
@@ -9,6 +11,7 @@ class MyParametresPage extends StatefulWidget {
 }
 
 class _MyParametresPageState extends State<MyParametresPage> {
+  final ApiService apiService = ApiService();
   String? utilisateur;
   String? token;
   String? email;
@@ -17,6 +20,7 @@ class _MyParametresPageState extends State<MyParametresPage> {
   void initState() {
     super.initState();
     _getEmail();
+    verifierConnexion();
   }
 
   Future<void> _getEmail() async {
@@ -32,6 +36,18 @@ class _MyParametresPageState extends State<MyParametresPage> {
       token = newToken;
       email = newEmail;
     });
+  }
+
+  Future<void> verifierConnexion() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('access_token');
+
+    if (token == null) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const MyConnexionPage()),
+      );
+    }
   }
 
   @override
@@ -140,8 +156,21 @@ class _MyParametresPageState extends State<MyParametresPage> {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {
-                    // Logique de déconnexion
+                  onPressed: () async {
+                    await apiService.logout();
+
+                    final prefs = await SharedPreferences.getInstance();
+                    await prefs.clear();
+
+                    if (!mounted) return;
+                    
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const MyConnexionPage(),
+                      ),
+                      (route) => false,
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 16),

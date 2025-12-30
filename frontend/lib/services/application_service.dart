@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:frontend/models/Materiel.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class ApiService {
-  final String baseUrl ='https://inventaire.bboxxdrc-pointage.com/api'; 
+  final String baseUrl = 'http://10.0.2.2:8000/api';
+  /* Android : 'http://10.0.2.2:8000/api' Ios : 'http://127.0.0.1:8000/api'; Le lien de l'application dans le serveur 'https://inventaire.bboxxdrc-pointage.com/api';*/
+  final FlutterSecureStorage _storage = const FlutterSecureStorage();
 
   Future<Map<String, dynamic>> login(String email, String password) async {
     final response = await http.post(
@@ -71,142 +74,57 @@ class ApiService {
     }
   }
 
-  // Future<bool> soumissionMateriel({
-  //   required Materiel materiel,
-  //   required File image,
-  // }) async {
-  //   try {
-  //     final prefs = await SharedPreferences.getInstance();
-  //     final token = prefs.getString('access_token');
-  //     if (token == null) {
-  //       throw Exception('Token non trouvé');
-  //     }
-
-  //     final uri = Uri.parse('$baseUrl/enregistrer-materiel');
-
-  //     final request = http.MultipartRequest('POST', uri);
-
-  //     request.headers.addAll({
-  //       'Accept': 'application/json',
-  //       'Authorization': 'Bearer $token',
-  //     });
-
-  //     // Champs texte
-  //     request.fields.addAll(materiel.toMap());
-
-  //     // Fichier image (SANS contentType)
-  //     request.files.add(await http.MultipartFile.fromPath('photo', image.path));
-
-  //     final streamedResponse = await request.send();
-  //     final response = await http.Response.fromStream(streamedResponse);
-
-  //     debugPrint('STATUS: ${response.statusCode}');
-  //     debugPrint('BODY: ${response.body}');
-
-  //     return response.statusCode == 201;
-  //   } catch (e) {
-  //     debugPrint('Erreur réseau: $e');
-  //     return false;
-  //   }
-  // }
-  // Future<bool> soumissionMateriel({
-  //   required Materiel materiel,
-  //   required File image,
-  // }) async {
-  //   try {
-  //     final prefs = await SharedPreferences.getInstance();
-  //     final token = prefs.getString('access_token');
-  //     if (token == null) {
-  //       throw Exception('Token non trouvé');
-  //     }
-
-  //     final uri = Uri.parse('$baseUrl/enregistrer-materiel');
-
-  //     final request = http.MultipartRequest('POST', uri);
-
-  //     request.headers.addAll({
-  //       'Accept': 'application/json',
-  //       'Authorization': 'Bearer $token',
-  //     });
-
-  //     // Champs texte
-  //     request.fields.addAll(materiel.toMap());
-
-  //     // Vérifiez si le champ photo est bien défini
-  //     if (image.path.isNotEmpty) {
-  //       request.files.add(
-  //         await http.MultipartFile.fromPath('photo', image.path),
-  //       );
-  //     }
-
-  //     final streamedResponse = await request.send();
-  //     final response = await http.Response.fromStream(streamedResponse);
-
-  //     debugPrint('STATUS: ${response.statusCode}');
-  //     debugPrint('BODY: ${response.body}');
-
-  //     // Traitez les erreurs spécifiques ici
-  //     if (response.statusCode == 422) {
-  //       final Map<String, dynamic> errorData = json.decode(response.body);
-  //       debugPrint('Erreurs: ${errorData['errors']}');
-  //     }
-
-  //     return response.statusCode == 201;
-  //   } catch (e) {
-  //     debugPrint('Erreur réseau: $e');
-  //     return false;
-  //   }
-  // }
   Future<bool> soumissionMateriel({
-  required Materiel materiel,
-  required File image,
-}) async {
-  try {
-    final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('access_token');
-    if (token == null) {
-      throw Exception('Token non trouvé');
+    required Materiel materiel,
+    required File image,
+  }) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString('access_token');
+      if (token == null) {
+        throw Exception('Token non trouvé');
+      }
+
+      final uri = Uri.parse('$baseUrl/enregistrer-materiel');
+      final request = http.MultipartRequest('POST', uri);
+
+      request.headers.addAll({
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token',
+      });
+
+      // Champs texte
+      request.fields.addAll(materiel.toMap());
+
+      // Vérifiez si le champ photo est bien défini
+      if (image.path.isNotEmpty && await image.exists()) {
+        debugPrint('Image path: ${image.path}');
+        request.files.add(
+          await http.MultipartFile.fromPath('photo', image.path),
+        );
+      } else {
+        debugPrint('Le fichier n\'existe pas ou le chemin est vide');
+        return false;
+      }
+
+      final streamedResponse = await request.send();
+      final response = await http.Response.fromStream(streamedResponse);
+
+      debugPrint('STATUS: ${response.statusCode}');
+      debugPrint('BODY: ${response.body}');
+
+      // Traitez les erreurs spécifiques ici
+      if (response.statusCode == 422) {
+        final Map<String, dynamic> errorData = json.decode(response.body);
+        debugPrint('Erreurs: ${errorData['errors']}');
+      }
+
+      return response.statusCode == 201;
+    } catch (e) {
+      debugPrint('Erreur réseau: $e');
+      return false;
     }
-
-    final uri = Uri.parse('$baseUrl/enregistrer-materiel');
-    final request = http.MultipartRequest('POST', uri);
-
-    request.headers.addAll({
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
-    });
-
-    // Champs texte
-    request.fields.addAll(materiel.toMap());
-
-    // Vérifiez si le champ photo est bien défini
-    if (image.path.isNotEmpty && await image.exists()) {
-            debugPrint('Image path: ${image.path}');
-            request.files.add(await http.MultipartFile.fromPath('photo', image.path));
-        } else {
-            debugPrint('Le fichier n\'existe pas ou le chemin est vide');
-            return false;
-        }
-
-
-    final streamedResponse = await request.send();
-    final response = await http.Response.fromStream(streamedResponse);
-
-    debugPrint('STATUS: ${response.statusCode}');
-    debugPrint('BODY: ${response.body}');
-
-    // Traitez les erreurs spécifiques ici
-    if (response.statusCode == 422) {
-      final Map<String, dynamic> errorData = json.decode(response.body);
-      debugPrint('Erreurs: ${errorData['errors']}');
-    }
-
-    return response.statusCode == 201;
-  } catch (e) {
-    debugPrint('Erreur réseau: $e');
-    return false;
   }
-}
 
   Future<List<Materiel>> recuperationMateriel() async {
     final prefs = await SharedPreferences.getInstance();
@@ -230,5 +148,19 @@ class ApiService {
         'Erreur de la récupération des matériels : ${response.statusCode}',
       );
     }
+  }
+
+  Future<void> logout() async {
+    final token = await _storage.read(key: 'acces_token');
+
+    if (token != null) {
+      await http.post(
+        Uri.parse('$baseUrl/logout'),
+        headers: {'Accept': 'application/json'},
+      );
+    }
+
+    await _storage.delete(key: 'access_token');
+    print("Déconnexion réussie");
   }
 }

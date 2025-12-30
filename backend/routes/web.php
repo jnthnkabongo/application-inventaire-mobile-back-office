@@ -5,7 +5,7 @@ use App\Http\Controllers\materielController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [indexController::class, 'index'])->name('index');
-Route::post('/soumission', [indexController::class, 'create'])->name('soumission');
+Route::post('/login', [indexController::class, 'create'])->name('soumission');
 Route::get('/administration', [indexController::class, 'administration'])->name('administration');
 Route::get('/liste-materiels', [materielController::class, 'liste_materiels'])->name('liste-materiels');
 Route::get('/liste-utilisateurs', [materielController::class, 'liste_utilisateurs'])->name('liste-utilisateurs');

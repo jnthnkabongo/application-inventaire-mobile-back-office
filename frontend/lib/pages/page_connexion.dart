@@ -73,6 +73,7 @@ class _MyConnexionPageState extends State<MyConnexionPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -83,13 +84,13 @@ class _MyConnexionPageState extends State<MyConnexionPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 80),
+                  const SizedBox(height: 180),
                   // Image de la boîte (tu peux la remplacer par ton image asset)
                   Center(
                     child: Icon(
                       Icons.inventory_2_outlined,
-                      size: 80,
-                      color: Colors.grey.shade700,
+                      size: 120,
+                      color: Colors.blue.shade700,
                     ),
                   ),
 

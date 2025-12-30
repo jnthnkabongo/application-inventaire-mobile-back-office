@@ -28,13 +28,13 @@ class _MyBienvenuePageState extends State<MyBienvenuePage> {
   }
 
   @override
-    Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
           children: [
             const Spacer(), // espace haut
-
             // 🎯 Animation centrée
             Center(
               child: Lottie.asset(
@@ -45,17 +45,12 @@ class _MyBienvenuePageState extends State<MyBienvenuePage> {
               ),
             ),
 
-            
-
             // 📝 Texte en bas
             const Padding(
               padding: EdgeInsets.only(bottom: 44),
               child: Text(
                 'Bienvenue...',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
             ),
             const Spacer(), // pousse le texte en bas
@@ -64,5 +59,4 @@ class _MyBienvenuePageState extends State<MyBienvenuePage> {
       ),
     );
   }
-
 }

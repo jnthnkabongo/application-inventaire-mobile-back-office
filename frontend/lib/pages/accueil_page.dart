@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/models/Materiel.dart';
 import 'package:frontend/services/application_service.dart';
@@ -91,12 +92,25 @@ class _MyAccueilPageState extends State<MyAccueilPage> {
               ],
             ),
           ),
-          const SizedBox(height: 20),
 
+          const SizedBox(height: 5),
+          //Text("Liste des matériels inventoriés"),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            child: Text(
+              "Liste des matériels inventoriés",
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+                color: Colors.blue,
+              ),
+            ),
+          ),
           Expanded(
             child: materiels == null
                 ? const Center(child: CircularProgressIndicator())
                 : ListView.builder(
+                    padding: EdgeInsets.zero,
                     itemCount: materiels!.length,
                     itemBuilder: (context, index) {
                       return Card(
@@ -108,13 +122,36 @@ class _MyAccueilPageState extends State<MyAccueilPage> {
                         elevation: 2,
                         child: ListTile(
                           leading: materiels![index].photo != null
+                              // ? ClipOval(
+                              //     child: Image.network(
+                              //       materiels![index]
+                              //           .photo!, // Affichage de l'image
+                              //       width: 50,
+                              //       height: 50,
+                              //       fit: BoxFit.cover,
+                              //     ),
+                              //   )
                               ? ClipOval(
-                                  child: Image.network(
-                                    materiels![index]
-                                        .photo!, // Affichage de l'image
+                                  child: CachedNetworkImage(
+                                    imageUrl: materiels![index].photo!,
                                     width: 50,
                                     height: 50,
                                     fit: BoxFit.cover,
+                                    memCacheWidth: 100,
+                                    memCacheHeight: 100,
+                                    placeholder: (context, url) =>
+                                        const SizedBox(
+                                          width: 50,
+                                          height: 50,
+                                          child: CircularProgressIndicator(
+                                            strokeWidth: 2,
+                                          ),
+                                        ),
+                                    errorWidget: (context, url, error) =>
+                                        const Icon(
+                                          Icons.broken_image,
+                                          size: 50,
+                                        ),
                                   ),
                                 )
                               : Icon(Icons.photo_camera, size: 50),

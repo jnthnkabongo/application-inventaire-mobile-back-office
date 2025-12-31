@@ -2,11 +2,11 @@
 @section('content')
      <div class="container my-5">
         <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-6"></div>
-            <div class="col-lg-4 col-md-4 col-sm-6">
-                <h1 class="text-center ">Tableau des shops</h1>
+            <div class="col-lg-3 col-md-4 col-sm-6"></div>
+            <div class="col-lg-6 col-md-4 col-sm-6">
+                <h1 class="text-center ">Tableau de type des matériels</h1>
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-6">
+            <div class="col-lg-3 col-md-4 col-sm-6">
                 <a class="btn btn-primary" href=""><i class="bi bi-gear-fill me-2"></i> Ajouter une type de matériel</a>
             </div>
         </div>
@@ -45,6 +45,12 @@
                 </tbody>
             </table>
         </div>
-
+        <nav class="app-pagination">
+            <ul class="pagination justify-content-center mt-2 pb-2">
+                <li class="page-item disabled">
+                    {{ $liste_type_mate->withQueryString()->links() }}
+                </li>
+            </ul>
+        </nav>
     </div>
 @endsection

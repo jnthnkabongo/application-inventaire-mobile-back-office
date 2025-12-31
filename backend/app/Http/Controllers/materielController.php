@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\saveMateriel;
+use App\Models\etat_mate;
 use App\Models\materiels;
 use App\Models\regions;
 use App\Models\shops;
@@ -81,6 +82,59 @@ class materielController extends Controller
             'data' => $liste_materiels
         ], 200);
 
+    }
+
+    public function combotype(Request $request){
+         $user =$request->user();
+        if (!$user) {
+            return response()->json([
+                'message' => 'Aucun utilisateur connecté'
+            ], 401);
+        }
+        $combotype = type_materiels::orderBy('id', 'asc')->get();
+        return response()->json([
+            'message' => 'Le combo du type de materiel',
+            'data' => $combotype
+        ], 200);
+    }
+    public function comboregion(Request $request){
+         $user =$request->user();
+        if (!$user) {
+            return response()->json([
+                'message' => 'Aucun utilisateur connecté'
+            ], 401);
+        }
+        $comboregion = regions::orderBy('id', 'asc')->get();
+        return response()->json([
+            'message' => 'Le combo du type de materiel',
+            'data' => $comboregion
+        ], 200);
+    }
+    public function comboshop(Request $request){
+         $user =$request->user();
+        if (!$user) {
+            return response()->json([
+                'message' => 'Aucun utilisateur connecté'
+            ], 401);
+        }
+        $comboshop = shops::orderBy('id', 'asc')->get();
+        return response()->json([
+            'message' => 'Le combo du type de materiel',
+            'data' => $comboshop
+        ], 200);
+    }
+    public function comboetat(Request $request){
+         $user =$request->user();
+        if (!$user) {
+            return response()->json([
+                'message' => 'Aucun utilisateur connecté'
+            ], 401);
+        }
+        $comboetat = etat_mate::orderBy('id', 'asc')->get();
+        return response()->json([
+            'message' => 'Le combo du type de materiel',
+            'data' => $comboetat
+        ], 200);
     }
 
     //********************** PARTIE WEB ****************************/

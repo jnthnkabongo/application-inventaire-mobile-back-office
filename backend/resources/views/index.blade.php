@@ -1,89 +1,88 @@
 @extends('layouts.entete-head')
 @section('content')
-    <div>
-    <div>
-        <div class="container mt-5">
-    <div class="row g-4">
 
-        <!-- Card 1 -->
-        <div class="col-12 col-sm-6 col-lg-4 col-xl">
-            <div class="card shadow-sm border-0 h-100">
-                <div class="card-body d-flex justify-content-between align-items-center">
-                    <div>
-                        <h6 class="text-muted">Utilisateurs</h6>
-                        <h3 class="fw-bold text-primary">{{ $sommes_users}}</h3>
-                    </div>
-                    <div class="fs-1 text-primary">
-                        👤
+
+    <div class="container mt-5">
+        <div class="row g-4">
+
+            <!-- Card 1 -->
+            <div class="col-12 col-sm-6 col-lg-4 col-xl">
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted">Utilisateurs</h6>
+                            <h3 class="fw-bold text-primary">{{ $sommes_users}}</h3>
+                        </div>
+                        <div class="fs-1 text-primary">
+                            👤
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Card 2 -->
-        <div class="col-12 col-sm-6 col-lg-4 col-xl">
-            <div class="card shadow-sm border-0 h-100">
-                <div class="card-body d-flex justify-content-between align-items-center">
-                    <div>
-                        <h6 class="text-muted">Matériels</h6>
-                        <h3 class="fw-bold text-primary">{{ $sommes_materiels}}</h3>
-                    </div>
-                    <div class="fs-1 text-primary">
-                        💻
+            <!-- Card 2 -->
+            <div class="col-12 col-sm-6 col-lg-4 col-xl">
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted">Matériels</h6>
+                            <h3 class="fw-bold text-primary">{{ $sommes_materiels}}</h3>
+                        </div>
+                        <div class="fs-1 text-primary">
+                            💻
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Card 3 -->
-        <div class="col-12 col-sm-6 col-lg-4 col-xl">
-            <div class="card shadow-sm border-0 h-100">
-                <div class="card-body d-flex justify-content-between align-items-center">
-                    <div>
-                        <h6 class="text-muted">Régions</h6>
-                        <h3 class="fw-bold text-primary">{{ $sommes_regions}}</h3>
-                    </div>
-                    <div class="fs-1 text-warning">
-                        📍
+            <!-- Card 3 -->
+            <div class="col-12 col-sm-6 col-lg-4 col-xl">
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted">Régions</h6>
+                            <h3 class="fw-bold text-primary">{{ $sommes_regions}}</h3>
+                        </div>
+                        <div class="fs-1 text-warning">
+                            📍
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Card 4 -->
-        <div class="col-12 col-sm-6 col-lg-6 col-xl">
-            <div class="card shadow-sm border-0 h-100">
-                <div class="card-body d-flex justify-content-between align-items-center">
-                    <div>
-                        <h6 class="text-muted">Shop & DC...</h6>
-                        <h3 class="fw-bold text-primary">{{ $sommes_shop }}</h3>
-                    </div>
-                    <div class="fs-1 text-info">
-                        🏪
+            <!-- Card 4 -->
+            <div class="col-12 col-sm-6 col-lg-6 col-xl">
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted">Shop & DC...</h6>
+                            <h3 class="fw-bold text-primary">{{ $sommes_shop }}</h3>
+                        </div>
+                        <div class="fs-1 text-info">
+                            🏪
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Card 5 -->
-        <div class="col-12 col-sm-6 col-lg-6 col-xl">
-            <div class="card shadow-sm border-0 h-100">
-                <div class="card-body d-flex justify-content-between align-items-center">
-                    <div>
-                        <h6 class="text-muted">Incidents</h6>
-                        <h3 class="fw-bold text-danger">{{ $liste_materiels_incedents}}</h3>
-                    </div>
-                    <div class="fs-1 text-danger">
-                        ⚠️
+            <!-- Card 5 -->
+            <div class="col-12 col-sm-6 col-lg-6 col-xl">
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted">Incidents</h6>
+                            <h3 class="fw-bold text-danger">{{ $liste_materiels_incedents}}</h3>
+                        </div>
+                        <div class="fs-1 text-danger">
+                            ⚠️
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
+        </div>
     </div>
-</div>
 
-    </div>
     <div class="container mt-5">
         <div class="card shadow-sm border-0">
             <div class="card-header bg-dark text-white d-flex flex-wrap align-items-center justify-content-center">
@@ -156,8 +155,6 @@
                 </div>
             </div>
         </div>
-
-
         <div class="table-responsive shadow-sm rounded-4 bg-white ">
             <table class="table table-hover align-middle">
                 <thead class="table-light">
@@ -242,12 +239,12 @@
 
         </div>
         <nav class="app-pagination">
-                <ul class="pagination justify-content-center mt-2 pb-2">
-                    <li class="page-item disabled">
-                        {{ $liste_materiels->withQueryString()->links() }}
-                    </li>
-                </ul>
-            </nav>
+            <ul class="pagination justify-content-center mt-2 pb-2">
+                <li class="page-item disabled">
+                    {{ $liste_materiels->withQueryString()->links() }}
+                </li>
+            </ul>
+        </nav>
     </div>
 </div>
 

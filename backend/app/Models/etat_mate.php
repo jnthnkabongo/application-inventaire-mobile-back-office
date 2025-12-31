@@ -9,6 +9,7 @@ class etat_mate extends Model
 {
     use HasFactory;
 
+    protected $table = 'etat_mates';
     protected $fillable = [
         'name'
     ];

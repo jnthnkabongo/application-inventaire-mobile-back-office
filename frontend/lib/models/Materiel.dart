@@ -44,7 +44,7 @@ class Materiel {
     }
 
     final photoUrl = json['photo'] != null
-        ? 'http://10.0.2.2:8000/storage/' + json['photo']
+        ? 'https://inventaire.bboxxdrc-pointage.com/' + json['photo']
         : null;
     // final photoUrl = json['photo'] != null
     //     ? 'https://www.inventaire.bboxxdrc-pointage.com/' + json['photo']

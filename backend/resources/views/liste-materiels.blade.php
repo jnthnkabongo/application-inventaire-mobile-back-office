@@ -117,6 +117,12 @@
                 </tbody>
             </table>
         </div>
-
+        <nav class="app-pagination">
+            <ul class="pagination justify-content-center mt-2 pb-2">
+                <li class="page-item disabled">
+                    {{ $liste_materiels->withQueryString()->links() }}
+                </li>
+            </ul>
+        </nav>
     </div>
 @endsection

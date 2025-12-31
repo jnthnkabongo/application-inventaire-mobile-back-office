@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class ApiService {
-  final String baseUrl = 'http://10.0.2.2:8000/api';
+  final String baseUrl = 'https://inventaire.bboxxdrc-pointage.com/api';
   /* Android : 'http://10.0.2.2:8000/api' Ios : 'http://127.0.0.1:8000/api'; Le lien de l'application dans le serveur 'https://inventaire.bboxxdrc-pointage.com/api';*/
   final FlutterSecureStorage _storage = const FlutterSecureStorage();
 
@@ -162,5 +162,94 @@ class ApiService {
 
     await _storage.delete(key: 'access_token');
     print("Déconnexion réussie");
+  }
+
+  Future<List<Map<String, dynamic>>> getRegions() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('access_token');
+    if (token == null) {
+      throw Exception('Token non trouver');
+    }
+
+    final response = await http.get(
+      Uri.parse('$baseUrl/combo-region'),
+      headers: {'Authorization': 'Bearer $token', 'Accept': 'application/json'},
+    );
+
+    if (response.statusCode == 200) {
+      final body = jsonDecode(response.body);
+      print("RESPONSE $baseUrl/combo-region => $body");
+      return List<Map<String, dynamic>>.from(body['data']);
+    } else {
+      print("Erreur $baseUrl/combo-region => ${response.statusCode} ${response.body}");
+      throw Exception('Erreur chargement $baseUrl/combo-region');
+    }
+  }
+
+  Future<List<Map<String, dynamic>>> getShops() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('access_token');
+    if (token == null) {
+      throw Exception('Token non trouver');
+    }
+
+    final response = await http.get(
+      Uri.parse('$baseUrl/combo-shop'),
+      headers: {'Authorization': 'Bearer $token', 'Accept': 'application/json'},
+    );
+
+    if (response.statusCode == 200) {
+      final body = jsonDecode(response.body);
+      print("RESPONSE $baseUrl/combo-shop => $body");
+      return List<Map<String, dynamic>>.from(body['data']);
+    } else {
+      print("Erreur $baseUrl/combo-shop => ${response.statusCode} ${response.body}");
+      throw Exception('Erreur chargement $baseUrl/combo-shop');
+    }
+  }
+
+  Future<List<Map<String, dynamic>>> getTypes() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('access_token');
+    if (token == null) {
+      throw Exception('Token non trouver');
+    }
+
+    final response = await http.get(
+      Uri.parse('$baseUrl/combo-type-mat'),
+      headers: {'Authorization': 'Bearer $token', 'Accept': 'application/json'},
+    );
+
+    if (response.statusCode == 200) {
+      final body = jsonDecode(response.body);
+      print("RESPONSE $baseUrl/combo-type-mat => $body");
+      return List<Map<String, dynamic>>.from(body['data']);
+    } else {
+      print("Erreur $baseUrl/combo-type-mat => ${response.statusCode} ${response.body}");
+      throw Exception('Erreur chargement $baseUrl/combo-type-mat');
+    }
+  }
+
+  Future<List<Map<String, dynamic>>> getEtats() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('access_token');
+    if (token == null) {
+      throw Exception('Token non trouver');
+    }
+
+    final response = await http.get(
+      Uri.parse('$baseUrl/combo-etat'),
+      headers: {'Authorization': 'Bearer $token', 'Accept': 'application/json'},
+    );
+
+    if (response.statusCode == 200) {
+      final body = jsonDecode(response.body);
+      print("RESPONSE $baseUrl/combo-etat => $body");
+      return List<Map<String, dynamic>>.from(body['data']);
+    } else {
+      print("Erreur $baseUrl/combo-etat => ${response.statusCode} ${response.body}");
+      throw Exception('Erreur chargement $baseUrl/combo-etat');
+    }
+
   }
 }

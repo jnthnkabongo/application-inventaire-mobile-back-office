@@ -84,7 +84,7 @@ class _MyConnexionPageState extends State<MyConnexionPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 180),
+                  const SizedBox(height: 140),
                   // Image de la boîte (tu peux la remplacer par ton image asset)
                   Center(
                     child: Icon(
@@ -102,7 +102,7 @@ class _MyConnexionPageState extends State<MyConnexionPage> {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black87,
+                      color: Colors.blue,
                     ),
                   ),
 
